@@ -15,7 +15,7 @@ def backup(dbx, file_name, remote_path = None, logger = None):
     """
 
     path = remote_path if remote_path else '/';
-    backup_file_name = os.path.join(path, file_name)
+    backup_file_name = os.path.join(path, os.path.basename(file_name))
 
     with open(file_name, 'rb') as fd:
 
