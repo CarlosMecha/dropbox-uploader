@@ -44,7 +44,7 @@ if __name__ == '__main__':
     remote_path = os.getenv('DROPBOX_PATH', '/')
 
     if len(sys.argv) < 2:
-        logger.error('The file name must be provided')
+        logger.error('At least one file name must be provided')
         sys.exit(1)
 
     if len(token) == 0:
@@ -60,6 +60,8 @@ if __name__ == '__main__':
         logger.error('Invalid access token')
         sys.exit(2)
 
-    res = backup(dbx, sys.argv[1], remote_path, logger)
-    sys.exit(0 if res else 1)
+    for file_name in sys.argv[1:]:
+        res = backup(dbx, file_name, remote_path, logger)
+        if not res:
+            sys.exit(3)
 
